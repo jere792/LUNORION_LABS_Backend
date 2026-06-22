@@ -1,6 +1,8 @@
 package com.lunorion.labs.core.usuario.infrastructure.adapters.in.http;
 
+import com.lunorion.labs.core.usuario.application.dto.in.AsignarPermisosRequest;
 import com.lunorion.labs.core.usuario.application.dto.in.CreateUsuarioRequest;
+import com.lunorion.labs.core.usuario.application.dto.out.PermisoResponse;
 import com.lunorion.labs.core.usuario.application.dto.out.UsuarioResponse;
 import com.lunorion.labs.core.usuario.domain.ports.in.IUsuarioCommandPort;
 import com.lunorion.labs.core.usuario.domain.ports.in.IUsuarioQueryPort;
@@ -43,5 +45,16 @@ public class UsuarioController {
     public ResponseEntity<Void> desactivar(@PathVariable String id) {
         commandService.desactivar(id);
         return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}/permisos")
+    public ResponseEntity<Void> asignarPermisos(@PathVariable String id, @RequestBody AsignarPermisosRequest request) {
+        commandService.asignarPermisos(id, request);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/permisos")
+    public ResponseEntity<List<PermisoResponse>> listarPermisos(@RequestParam String tenantId) {
+        return ResponseEntity.ok(queryService.listarPermisos(tenantId));
     }
 }

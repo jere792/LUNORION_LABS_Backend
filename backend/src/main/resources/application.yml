@@ -1,6 +1,8 @@
 spring:
   application:
     name: lunorion-labs
+  profiles:
+    active: dev
 
   datasource:
     url: jdbc:postgresql://localhost:5432/lunorion_db

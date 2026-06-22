@@ -5,4 +5,5 @@ import com.lunorion.labs.core.auth.application.dto.out.LoginResponse;
 
 public interface ILoginPort {
     LoginResponse login(LoginRequest request);
+    LoginResponse refresh(String token);
 }

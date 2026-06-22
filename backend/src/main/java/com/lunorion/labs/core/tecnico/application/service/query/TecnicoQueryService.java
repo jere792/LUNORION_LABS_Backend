@@ -1,5 +1,6 @@
 package com.lunorion.labs.core.tecnico.application.service.query;
 
+import com.lunorion.labs.core.tecnico.application.dto.out.CargaTrabajoResponse;
 import com.lunorion.labs.core.tecnico.application.dto.out.TecnicoResponse;
 import com.lunorion.labs.core.tecnico.application.mapper.TecnicoMapper;
 import com.lunorion.labs.core.tecnico.domain.ports.in.ITecnicoQueryPort;
@@ -7,6 +8,7 @@ import com.lunorion.labs.core.tecnico.domain.ports.out.ITecnicoRepositoryPort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -47,5 +49,15 @@ public class TecnicoQueryService implements ITecnicoQueryPort {
         return findByTenantId(tenantId).stream()
                 .filter(TecnicoResponse::isActivo)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public CargaTrabajoResponse workload(String id) {
+        CargaTrabajoResponse r = new CargaTrabajoResponse();
+        r.setTecnicoId(id);
+        r.setNombre("");
+        r.setOrdenesAbiertas(0);
+        r.setHorasPendientes(BigDecimal.ZERO);
+        return r;
     }
 }

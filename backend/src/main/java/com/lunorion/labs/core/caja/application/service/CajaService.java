@@ -4,6 +4,7 @@ import com.lunorion.labs.core.caja.application.dto.in.AbrirCajaRequest;
 import com.lunorion.labs.core.caja.application.dto.in.CerrarCajaRequest;
 import com.lunorion.labs.core.caja.application.dto.in.RegistrarMovimientoRequest;
 import com.lunorion.labs.core.caja.application.dto.out.CierreCajaResponse;
+import com.lunorion.labs.core.caja.application.dto.out.EstadoCajaResponse;
 import com.lunorion.labs.core.caja.application.dto.out.MovimientoCajaResponse;
 import com.lunorion.labs.core.caja.application.mapper.CajaMapper;
 import com.lunorion.labs.core.caja.domain.entity.CierreCaja;
@@ -118,5 +119,25 @@ public class CajaService {
         return movRepo.findByCierreCajaId(UUID.fromString(cierreCajaId)).stream()
                 .map(e -> mapper.toResponse(movEntityMapper.toDomain(e)))
                 .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public EstadoCajaResponse obtenerEstadoActual(String tenantId) {
+        return cierreRepo.findByTenantIdAndHoraCierreIsNull(UUID.fromString(tenantId))
+                .map(entity -> {
+                    EstadoCajaResponse r = new EstadoCajaResponse();
+                    r.setId(entity.getId().toString());
+                    r.setTenantId(entity.getTenantId().toString());
+                    r.setSaldoInicial(entity.getSaldoInicial());
+                    r.setTotalIngresos(entity.getTotalIngresos());
+                    r.setTotalEgresos(entity.getTotalEgresos());
+                    r.setSaldoActual(entity.getSaldoInicial()
+                            .add(entity.getTotalIngresos())
+                            .subtract(entity.getTotalEgresos()));
+                    r.setFechaApertura(entity.getFecha() != null ? entity.getFecha().toString() : null);
+                    r.setEstado("ABIERTO");
+                    return r;
+                })
+                .orElse(null);
     }
 }

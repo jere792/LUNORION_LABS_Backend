@@ -39,4 +39,11 @@ public class CheckinQueryService implements ICheckinQueryPort {
     public Optional<CheckinResponse> findByOtId(String otId) {
         return repository.findByOtId(otId).map(mapper::toResponse);
     }
+
+    @Override
+    public byte[] descargarActa(String id) {
+        return repository.findById(id)
+                .map(c -> c.getPdfActa() != null ? c.getPdfActa().getBytes() : new byte[0])
+                .orElse(new byte[0]);
+    }
 }

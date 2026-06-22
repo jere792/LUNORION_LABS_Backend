@@ -43,6 +43,11 @@ public class Checkin extends BaseEntity {
         markUpdated();
     }
 
+    public void firmarActa(String firmaCliente) {
+        this.firmaCliente = firmaCliente;
+        markUpdated();
+    }
+
     public void adjuntarActa(String pdfActa) {
         this.pdfActa = pdfActa;
         markUpdated();

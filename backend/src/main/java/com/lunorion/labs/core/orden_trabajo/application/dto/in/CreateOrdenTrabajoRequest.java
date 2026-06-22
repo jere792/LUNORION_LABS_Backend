@@ -13,6 +13,7 @@ public class CreateOrdenTrabajoRequest {
     private String estado;
     private String motivoIngreso;
     private Integer kilometrajeIngreso;
+    private Integer kilometrajeSalida;
     private LocalDate fechaPrometida;
     private String usuarioCreoId;
     private List<CreateOtInsumoRequest> insumos;
@@ -34,6 +35,8 @@ public class CreateOrdenTrabajoRequest {
     public void setMotivoIngreso(String motivoIngreso) { this.motivoIngreso = motivoIngreso; }
     public Integer getKilometrajeIngreso() { return kilometrajeIngreso; }
     public void setKilometrajeIngreso(Integer kilometrajeIngreso) { this.kilometrajeIngreso = kilometrajeIngreso; }
+    public Integer getKilometrajeSalida() { return kilometrajeSalida; }
+    public void setKilometrajeSalida(Integer kilometrajeSalida) { this.kilometrajeSalida = kilometrajeSalida; }
     public LocalDate getFechaPrometida() { return fechaPrometida; }
     public void setFechaPrometida(LocalDate fechaPrometida) { this.fechaPrometida = fechaPrometida; }
     public String getUsuarioCreoId() { return usuarioCreoId; }

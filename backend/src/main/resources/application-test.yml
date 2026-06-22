@@ -1,0 +1,17 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/lunorion_db_test
+    username: postgres
+    password: dominid
+
+jwt:
+  secret: test-secret-key-not-for-production
+  expiration: 3600000
+
+server:
+  port: 8081

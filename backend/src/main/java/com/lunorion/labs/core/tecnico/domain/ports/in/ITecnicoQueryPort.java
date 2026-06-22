@@ -1,5 +1,6 @@
 package com.lunorion.labs.core.tecnico.domain.ports.in;
 
+import com.lunorion.labs.core.tecnico.application.dto.out.CargaTrabajoResponse;
 import com.lunorion.labs.core.tecnico.application.dto.out.TecnicoResponse;
 
 import java.util.List;
@@ -10,4 +11,5 @@ public interface ITecnicoQueryPort {
     List<TecnicoResponse> findAll();
     List<TecnicoResponse> findByTenantId(String tenantId);
     List<TecnicoResponse> findActivosByTenantId(String tenantId);
+    CargaTrabajoResponse workload(String id);
 }

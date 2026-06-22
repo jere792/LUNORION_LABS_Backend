@@ -57,6 +57,28 @@ public class Producto extends BaseEntity {
         markUpdated();
     }
 
+    public void actualizar(UUID categoriaId, String codigo, String codigoBarra,
+                           String nombre, String descripcion, String marca, String modelo,
+                           String unidadMedida, java.math.BigDecimal precioCompra,
+                           java.math.BigDecimal precioVenta, Integer stockActual,
+                           Integer stockMinimo, String ubicacion, String tipo) {
+        this.categoriaId = categoriaId;
+        this.codigo = codigo;
+        this.codigoBarra = codigoBarra;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.unidadMedida = unidadMedida;
+        this.precioCompra = precioCompra;
+        this.precioVenta = precioVenta;
+        this.stockActual = stockActual;
+        this.stockMinimo = stockMinimo;
+        this.ubicacion = ubicacion;
+        this.tipo = tipo;
+        markUpdated();
+    }
+
     public String getTenantId() { return tenantId; }
     public UUID getCategoriaId() { return categoriaId; }
     public String getCodigo() { return codigo; }

@@ -1,6 +1,8 @@
 package com.lunorion.labs.core.orden_trabajo.application.mapper;
 
+import com.lunorion.labs.core.orden_trabajo.application.dto.in.AddInsumoRequest;
 import com.lunorion.labs.core.orden_trabajo.application.dto.in.CreateOrdenTrabajoRequest;
+import com.lunorion.labs.core.orden_trabajo.application.dto.in.RegistroLaborRequest;
 import com.lunorion.labs.core.orden_trabajo.application.dto.out.OrdenTrabajoResponse;
 import com.lunorion.labs.core.orden_trabajo.application.dto.out.OrdenTrabajoResponse.OtInsumoResponse;
 import com.lunorion.labs.core.orden_trabajo.application.dto.out.OrdenTrabajoResponse.OtManoObraResponse;
@@ -9,6 +11,7 @@ import com.lunorion.labs.core.orden_trabajo.domain.entity.OtInsumo;
 import com.lunorion.labs.core.orden_trabajo.domain.entity.OtManoObra;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -75,10 +78,13 @@ public class OrdenTrabajoMapper {
         response.setEstado(ot.getEstado());
         response.setMotivoIngreso(ot.getMotivoIngreso());
         response.setKilometrajeIngreso(ot.getKilometrajeIngreso());
+        response.setKilometrajeSalida(ot.getKilometrajeSalida());
         response.setFechaPrometida(ot.getFechaPrometida());
+        response.setFechaCierre(ot.getFechaCierre());
         response.setTotalRepuestos(ot.getTotalRepuestos());
         response.setTotalManoObra(ot.getTotalManoObra());
         response.setTotal(ot.getTotal());
+        response.setPuedeFacturar("CERRADO".equals(ot.getEstado()));
         response.setOtOrigenId(ot.getOtOrigenId());
         response.setUsuarioCreoId(ot.getUsuarioCreoId());
         response.setUsuarioCerroId(ot.getUsuarioCerroId());
@@ -114,5 +120,16 @@ public class OrdenTrabajoMapper {
     public List<OtManoObraResponse> toManosObraResponse(List<OtManoObra> manosObra) {
         if (manosObra == null) return Collections.emptyList();
         return manosObra.stream().map(this::toManoObraResponse).collect(Collectors.toList());
+    }
+
+    public OtInsumo toInsumoDomain(String ordenTrabajoId, AddInsumoRequest request) {
+        BigDecimal subtotal = request.getCantidad().multiply(request.getPrecioUnitario());
+        return OtInsumo.create(ordenTrabajoId, request.getProductoId(), request.getCantidad(), request.getPrecioUnitario(), subtotal);
+    }
+
+    public OtManoObra toManoObraDomain(String ordenTrabajoId, RegistroLaborRequest request) {
+        BigDecimal subtotal = request.getHoras().multiply(request.getTarifaHora());
+        return OtManoObra.create(ordenTrabajoId, request.getTecnicoId(), request.getServicioDescripcion(),
+                request.getHoras(), request.getTarifaHora(), subtotal);
     }
 }

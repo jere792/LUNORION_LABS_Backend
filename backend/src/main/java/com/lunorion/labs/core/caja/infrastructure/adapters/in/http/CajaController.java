@@ -4,6 +4,7 @@ import com.lunorion.labs.core.caja.application.dto.in.AbrirCajaRequest;
 import com.lunorion.labs.core.caja.application.dto.in.CerrarCajaRequest;
 import com.lunorion.labs.core.caja.application.dto.in.RegistrarMovimientoRequest;
 import com.lunorion.labs.core.caja.application.dto.out.CierreCajaResponse;
+import com.lunorion.labs.core.caja.application.dto.out.EstadoCajaResponse;
 import com.lunorion.labs.core.caja.application.dto.out.MovimientoCajaResponse;
 import com.lunorion.labs.core.caja.application.service.CajaService;
 import org.springframework.http.HttpStatus;
@@ -60,5 +61,11 @@ public class CajaController {
     @GetMapping("/{cierreCajaId}/movimientos")
     public ResponseEntity<List<MovimientoCajaResponse>> findMovimientos(@PathVariable String cierreCajaId) {
         return ResponseEntity.ok(cajaService.findMovimientosByCierre(cierreCajaId));
+    }
+
+    @GetMapping("/actual")
+    public ResponseEntity<EstadoCajaResponse> currentState(@RequestParam String tenantId) {
+        EstadoCajaResponse estado = cajaService.obtenerEstadoActual(tenantId);
+        return estado != null ? ResponseEntity.ok(estado) : ResponseEntity.notFound().build();
     }
 }

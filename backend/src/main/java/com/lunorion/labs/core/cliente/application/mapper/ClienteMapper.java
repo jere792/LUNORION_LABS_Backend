@@ -36,4 +36,16 @@ public class ClienteMapper {
         response.setActivo(cliente.isActivo());
         return response;
     }
+
+    public void updateDomain(Cliente cliente, CreateClienteRequest request) {
+        if (request.getTipoDocumento() != null) cliente.setTipoDocumento(request.getTipoDocumento());
+        if (request.getNumeroDocumento() != null) cliente.setNumeroDocumento(request.getNumeroDocumento());
+        if (request.getNombres() != null) cliente.setNombres(request.getNombres());
+        if (request.getApellidos() != null) cliente.setApellidos(request.getApellidos());
+        if (request.getRazonSocial() != null) cliente.setRazonSocial(request.getRazonSocial());
+        if (request.getDireccion() != null) cliente.setDireccion(request.getDireccion());
+        if (request.getTelefono() != null) cliente.setTelefono(request.getTelefono());
+        if (request.getEmail() != null) cliente.setEmail(request.getEmail());
+        cliente.actualizar();
+    }
 }

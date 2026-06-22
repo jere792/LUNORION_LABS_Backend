@@ -44,6 +44,11 @@ public class VentaController {
         return ResponseEntity.ok(queryService.findByTenantId(tenantId));
     }
 
+    @GetMapping("/clientes/{clienteId}/historial")
+    public ResponseEntity<List<VentaResponse>> customerHistory(@PathVariable String clienteId) {
+        return ResponseEntity.ok(queryService.findByClienteId(clienteId));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
         commandService.delete(id);

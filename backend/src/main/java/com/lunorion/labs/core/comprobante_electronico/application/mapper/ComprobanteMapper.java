@@ -40,13 +40,20 @@ public class ComprobanteMapper {
         response.setNumero(domain.getNumero());
         response.setFechaEmision(domain.getFechaEmision() != null ? domain.getFechaEmision().toString() : null);
         response.setHoraEmision(domain.getHoraEmision() != null ? domain.getHoraEmision().toString() : null);
+        response.setXmlFirmado(domain.getXmlFirmado());
+        response.setXmlCdr(domain.getXmlCdr());
         response.setEstadoSunat(domain.getEstadoSunat());
         response.setCodigoErrorSunat(domain.getCodigoErrorSunat());
         response.setDescripcionError(domain.getDescripcionError());
+        response.setComprobanteReferenciaId(domain.getComprobanteReferenciaId());
+        response.setMontoOperacionesGravadas(domain.getMontoOperacionesGravadas());
+        response.setMontoIgv(domain.getMontoIgv());
         response.setMontoTotal(domain.getMontoTotal());
         response.setRucCliente(domain.getRucCliente());
         response.setRazonSocialCliente(domain.getRazonSocialCliente());
         response.setIntentosEnvio(domain.getIntentosEnvio());
+        response.setUltimoEnvio(domain.getUltimoEnvio() != null ? domain.getUltimoEnvio().toString() : null);
+        response.setEnviadoPorId(domain.getEnviadoPorId());
         return response;
     }
 }

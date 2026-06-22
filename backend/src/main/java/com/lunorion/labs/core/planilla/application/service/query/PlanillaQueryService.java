@@ -2,6 +2,8 @@ package com.lunorion.labs.core.planilla.application.service.query;
 
 import com.lunorion.labs.core.planilla.application.dto.out.AsistenciaResponse;
 import com.lunorion.labs.core.planilla.application.dto.out.BoletaPagoResponse;
+import com.lunorion.labs.core.planilla.application.dto.out.ComisionConfigResponse;
+import com.lunorion.labs.core.planilla.application.dto.out.ProductividadResponse;
 import com.lunorion.labs.core.planilla.application.mapper.PlanillaMapper;
 import com.lunorion.labs.core.planilla.domain.ports.in.IPlanillaQueryPort;
 import com.lunorion.labs.core.planilla.domain.ports.out.IAsistenciaRepositoryPort;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -48,5 +51,23 @@ public class PlanillaQueryService implements IPlanillaQueryPort {
         return boletaRepository.findByTenantIdAndPeriodo(tenantId, periodo).stream()
                 .map(mapper::toResponse)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public ProductividadResponse productividad(String tenantId, LocalDate desde, LocalDate hasta) {
+        ProductividadResponse r = new ProductividadResponse();
+        r.setTenantId(tenantId);
+        r.setTecnicos(Collections.emptyList());
+        return r;
+    }
+
+    @Override
+    public List<ComisionConfigResponse> getComisionesConfig(String tenantId) {
+        return Collections.emptyList();
+    }
+
+    @Override
+    public byte[] descargarPdf(String id) {
+        return new byte[0];
     }
 }

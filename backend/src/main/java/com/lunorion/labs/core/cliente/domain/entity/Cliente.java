@@ -34,5 +34,14 @@ public class Cliente extends BaseEntity {
     public String getTelefono() { return telefono; }
     public String getEmail() { return email; }
     public boolean isActivo() { return activo; }
+    public void setTipoDocumento(String tipoDocumento) { this.tipoDocumento = tipoDocumento; }
+    public void setNumeroDocumento(String numeroDocumento) { this.numeroDocumento = numeroDocumento; }
+    public void setNombres(String nombres) { this.nombres = nombres; }
+    public void setApellidos(String apellidos) { this.apellidos = apellidos; }
+    public void setRazonSocial(String razonSocial) { this.razonSocial = razonSocial; }
+    public void setDireccion(String direccion) { this.direccion = direccion; }
+    public void setTelefono(String telefono) { this.telefono = telefono; }
+    public void setEmail(String email) { this.email = email; }
     public void desactivar() { this.activo = false; markUpdated(); }
+    public void actualizar() { markUpdated(); }
 }

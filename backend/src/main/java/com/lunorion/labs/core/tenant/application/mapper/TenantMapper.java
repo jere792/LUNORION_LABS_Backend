@@ -28,6 +28,9 @@ public class TenantMapper {
         response.setDomicilioFiscal(tenant.getDomicilioFiscal());
         response.setEmail(tenant.getEmail());
         response.setTelefono(tenant.getTelefono());
+        response.setLogoUrl(tenant.getLogoUrl());
+        response.setColorPrimario(tenant.getColorPrimario());
+        response.setColorSecundario(tenant.getColorSecundario());
         response.setPlan(tenant.getPlan());
         response.setEstado(tenant.getEstado());
         return response;

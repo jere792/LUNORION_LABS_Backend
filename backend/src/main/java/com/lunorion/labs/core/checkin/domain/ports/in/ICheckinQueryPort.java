@@ -9,4 +9,5 @@ public interface ICheckinQueryPort {
     Optional<CheckinResponse> findById(String id);
     List<CheckinResponse> findByTenantId(String tenantId);
     Optional<CheckinResponse> findByOtId(String otId);
+    byte[] descargarActa(String id);
 }

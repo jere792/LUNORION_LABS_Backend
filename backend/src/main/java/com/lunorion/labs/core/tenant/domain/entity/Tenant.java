@@ -67,6 +67,16 @@ public class Tenant extends BaseEntity {
     public String getColorSecundario() { return colorSecundario; }
     public String getPlan() { return plan; }
     public String getEstado() { return estado; }
+    public void setNombreComercial(String nombreComercial) { this.nombreComercial = nombreComercial; }
+    public void setDomicilioFiscal(String domicilioFiscal) { this.domicilioFiscal = domicilioFiscal; }
+    public void setEmail(String email) { this.email = email; }
+    public void setTelefono(String telefono) { this.telefono = telefono; }
+    public void setRegimenTributario(String regimenTributario) { this.regimenTributario = regimenTributario; }
+    public void setLogoUrl(String logoUrl) { this.logoUrl = logoUrl; }
+    public void setColorPrimario(String colorPrimario) { this.colorPrimario = colorPrimario; }
+    public void setColorSecundario(String colorSecundario) { this.colorSecundario = colorSecundario; }
+    public void setPlan(String plan) { this.plan = plan; }
+    public void setEstado(String estado) { this.estado = estado; }
     public byte[] getCertificadoP12() { return certificadoP12; }
     public String getCertificadoPassword() { return certificadoPassword; }
     public LocalDate getCertificadoValidez() { return certificadoValidez; }

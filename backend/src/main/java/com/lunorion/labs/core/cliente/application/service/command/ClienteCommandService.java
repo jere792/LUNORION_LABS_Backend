@@ -29,6 +29,15 @@ public class ClienteCommandService implements IClienteCommandPort {
     }
 
     @Override
+    public ClienteResponse update(String id, CreateClienteRequest request) {
+        return repository.findById(id).map(cliente -> {
+            mapper.updateDomain(cliente, request);
+            Cliente saved = repository.save(cliente);
+            return mapper.toResponse(saved);
+        }).orElseThrow(() -> new RuntimeException("Cliente no encontrado: " + id));
+    }
+
+    @Override
     public void desactivar(String id) {
         repository.findById(id).ifPresent(cliente -> {
             cliente.desactivar();

@@ -1,7 +1,10 @@
 package com.lunorion.labs.core.producto.application.mapper;
 
+import com.lunorion.labs.core.producto.application.dto.in.CreateCategoriaRequest;
 import com.lunorion.labs.core.producto.application.dto.in.CreateProductoRequest;
+import com.lunorion.labs.core.producto.application.dto.out.CategoriaResponse;
 import com.lunorion.labs.core.producto.application.dto.out.ProductoResponse;
+import com.lunorion.labs.core.producto.domain.entity.CategoriaProducto;
 import com.lunorion.labs.core.producto.domain.entity.Producto;
 import org.springframework.stereotype.Component;
 
@@ -46,6 +49,23 @@ public class ProductoMapper {
         response.setUbicacion(producto.getUbicacion());
         response.setTipo(producto.getTipo());
         response.setActivo(producto.isActivo());
+        return response;
+    }
+
+    public CategoriaProducto toCategoriaDomain(CreateCategoriaRequest request) {
+        return CategoriaProducto.create(
+            request.getTenantId(),
+            request.getNombre(),
+            request.getCategoriaPadreId()
+        );
+    }
+
+    public CategoriaResponse toCategoriaResponse(CategoriaProducto categoria) {
+        CategoriaResponse response = new CategoriaResponse();
+        response.setId(categoria.getId().toString());
+        response.setTenantId(categoria.getTenantId());
+        response.setNombre(categoria.getNombre());
+        response.setCategoriaPadreId(categoria.getCategoriaPadreId());
         return response;
     }
 }

@@ -1,5 +1,6 @@
 package com.lunorion.labs.core.producto.domain.ports.in;
 
+import com.lunorion.labs.core.producto.application.dto.out.CategoriaResponse;
 import com.lunorion.labs.core.producto.application.dto.out.ProductoResponse;
 
 import java.util.List;
@@ -11,4 +12,8 @@ public interface IProductoQueryPort {
     Optional<ProductoResponse> findByCodigo(String codigo);
     List<ProductoResponse> findByTenantId(String tenantId);
     List<ProductoResponse> findByCategoriaId(UUID categoriaId);
+    List<ProductoResponse> findStockCritico(String tenantId);
+    List<ProductoResponse> reporteRotacion(String tenantId);
+    List<CategoriaResponse> findAllCategorias();
+    Optional<CategoriaResponse> findCategoriaById(String id);
 }

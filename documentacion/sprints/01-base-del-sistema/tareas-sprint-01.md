@@ -68,17 +68,15 @@
 | 3 | **Search Bar** — búsqueda con debounce para listados | Alta | — |
 | 4 | **Detail Card** — vista read-only de entidad | Media | — |
 | 5 | **Toast / Snackbar** — feedback de éxito/error | Alta | — |
-| 6 | **Quick-Create Product Modal** — modal de creación rápida de producto | Media | #2 |
 
 ## Angie — Frontend (Layout)
 
 | # | Componente | Prioridad | Depende de |
 |:---:|:---|:---:|:---|
-| 1 | **Sidebar / Navigation Menu** — menú lateral con permisos, usa logo y colores del tenant | Alta | — |
+| 1 | **Sidebar / Navigation Menu** — menú lateral con permisos, usa logo y colores del tenant | Alta | 
 | 2 | **Top Nav Bar** — barra superior con logo del tenant, usuario, logout | Alta | — |
 | 3 | **Breadcrumb** — migas de pan para navegación | Media | — |
 | 4 | **Confirmation Dialog / Modal** — cuadro de confirmación genérico | Alta | — |
-| 5 | **Loading Skeleton** — placeholder de carga | Media | — |
 | 6 | **Loading Spinner** — indicador de carga circular | Alta | — |
 
 ## Bianca — Frontend (Formularios y Data Display)
@@ -89,9 +87,8 @@
 | 2 | **Page Header** — título + botones de acción | Alta | — |
 | 3 | **Status Badge / Chip** — indicador de estado con color | Alta | — |
 | 4 | **Empty State** — placeholder para listas vacías | Media | — |
-| 5 | **Tab Navigation** — pestañas para perfiles (Info / Vehículos / Historial) | Media | — |
-| 6 | **Stat Card / KPI Card** — tarjeta de indicador numérico | Alta | — |
-| 7 | **Filter Panel** — panel de filtros avanzados (estado, fechas) | Media | — |
+| 5 | **Stat Card / KPI Card** — tarjeta de indicador numérico | Alta | — |
+| 6 | **Filter Panel** — panel de filtros avanzados (estado, fechas) | Media | — |
 
 ---
 

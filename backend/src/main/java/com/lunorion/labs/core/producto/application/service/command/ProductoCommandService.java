@@ -1,8 +1,11 @@
 package com.lunorion.labs.core.producto.application.service.command;
 
+import com.lunorion.labs.core.producto.application.dto.in.CreateCategoriaRequest;
 import com.lunorion.labs.core.producto.application.dto.in.CreateProductoRequest;
+import com.lunorion.labs.core.producto.application.dto.out.CategoriaResponse;
 import com.lunorion.labs.core.producto.application.dto.out.ProductoResponse;
 import com.lunorion.labs.core.producto.application.mapper.ProductoMapper;
+import com.lunorion.labs.core.producto.domain.entity.CategoriaProducto;
 import com.lunorion.labs.core.producto.domain.entity.Producto;
 import com.lunorion.labs.core.producto.domain.ports.in.IProductoCommandPort;
 import com.lunorion.labs.core.producto.domain.ports.out.IProductoRepositoryPort;
@@ -29,10 +32,48 @@ public class ProductoCommandService implements IProductoCommandPort {
     }
 
     @Override
+    public ProductoResponse update(String id, CreateProductoRequest request) {
+        Producto producto = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Producto not found with id: " + id));
+        producto.actualizar(
+            request.getCategoriaId(),
+            request.getCodigo(),
+            request.getCodigoBarra(),
+            request.getNombre(),
+            request.getDescripcion(),
+            request.getMarca(),
+            request.getModelo(),
+            request.getUnidadMedida(),
+            request.getPrecioCompra(),
+            request.getPrecioVenta(),
+            request.getStockActual(),
+            request.getStockMinimo(),
+            request.getUbicacion(),
+            request.getTipo()
+        );
+        Producto saved = repository.save(producto);
+        return mapper.toResponse(saved);
+    }
+
+    @Override
+    public ProductoResponse quickCreate(CreateProductoRequest request) {
+        Producto producto = mapper.toDomain(request);
+        Producto saved = repository.save(producto);
+        return mapper.toResponse(saved);
+    }
+
+    @Override
     public void updateStock(String id, Integer cantidad) {
         repository.findById(id).ifPresent(producto -> {
             producto.updateStock(cantidad);
             repository.save(producto);
         });
+    }
+
+    @Override
+    public CategoriaResponse createCategoria(CreateCategoriaRequest request) {
+        CategoriaProducto categoria = mapper.toCategoriaDomain(request);
+        CategoriaProducto saved = repository.saveCategoria(categoria);
+        return mapper.toCategoriaResponse(saved);
     }
 }

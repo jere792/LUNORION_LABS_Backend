@@ -29,6 +29,13 @@ public class VentaQueryService implements IVentaQueryPort {
     }
 
     @Override
+    public List<VentaResponse> findByClienteId(String clienteId) {
+        return repository.findByClienteId(clienteId).stream()
+                .map(mapper::toResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<VentaResponse> findByTenantId(String tenantId) {
         return repository.findByTenantId(tenantId).stream()
                 .map(mapper::toResponse)

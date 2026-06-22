@@ -1,5 +1,6 @@
 package com.lunorion.labs.core.producto.application.service.query;
 
+import com.lunorion.labs.core.producto.application.dto.out.CategoriaResponse;
 import com.lunorion.labs.core.producto.application.dto.out.ProductoResponse;
 import com.lunorion.labs.core.producto.application.mapper.ProductoMapper;
 import com.lunorion.labs.core.producto.domain.ports.in.IProductoQueryPort;
@@ -46,5 +47,31 @@ public class ProductoQueryService implements IProductoQueryPort {
         return repository.findByCategoriaId(categoriaId).stream()
                 .map(mapper::toResponse)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductoResponse> findStockCritico(String tenantId) {
+        return repository.findStockCritico(tenantId).stream()
+                .map(mapper::toResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductoResponse> reporteRotacion(String tenantId) {
+        return repository.findByTenantId(tenantId).stream()
+                .map(mapper::toResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CategoriaResponse> findAllCategorias() {
+        return repository.findAllCategorias().stream()
+                .map(mapper::toCategoriaResponse)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<CategoriaResponse> findCategoriaById(String id) {
+        return repository.findCategoriaById(id).map(mapper::toCategoriaResponse);
     }
 }

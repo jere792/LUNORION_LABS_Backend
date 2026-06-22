@@ -1,6 +1,8 @@
 package com.lunorion.labs.core.orden_trabajo.infrastructure.adapters.in.http;
 
-import com.lunorion.labs.core.orden_trabajo.application.dto.in.CreateOrdenTrabajoRequest;
+import com.lunorion.labs.core.orden_trabajo.application.dto.in.*;
+import com.lunorion.labs.core.orden_trabajo.application.dto.out.CierreOtResponse;
+import com.lunorion.labs.core.orden_trabajo.application.dto.out.KanbanResponse;
 import com.lunorion.labs.core.orden_trabajo.application.dto.out.OrdenTrabajoResponse;
 import com.lunorion.labs.core.orden_trabajo.domain.ports.in.IOrdenTrabajoCommandPort;
 import com.lunorion.labs.core.orden_trabajo.domain.ports.in.IOrdenTrabajoQueryPort;
@@ -48,5 +50,52 @@ public class OrdenTrabajoController {
     public ResponseEntity<Void> delete(@PathVariable String id) {
         commandService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<OrdenTrabajoResponse> update(@PathVariable String id, @RequestBody CreateOrdenTrabajoRequest request) {
+        return ResponseEntity.ok(commandService.update(id, request));
+    }
+
+    @PatchMapping("/{id}/estado")
+    public ResponseEntity<OrdenTrabajoResponse> changeStatus(@PathVariable String id, @RequestBody CambioEstadoRequest request) {
+        return ResponseEntity.ok(commandService.cambiarEstado(id, request));
+    }
+
+    @PostMapping("/{id}/insumos")
+    public ResponseEntity<OrdenTrabajoResponse> addInsumo(@PathVariable String id, @RequestBody AddInsumoRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(commandService.addInsumo(id, request));
+    }
+
+    @DeleteMapping("/{id}/insumos/{insumoId}")
+    public ResponseEntity<Void> removeInsumo(@PathVariable String id, @PathVariable String insumoId) {
+        commandService.removeInsumo(id, insumoId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}/labor")
+    public ResponseEntity<OrdenTrabajoResponse> addLabor(@PathVariable String id, @RequestBody RegistroLaborRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(commandService.addLabor(id, request));
+    }
+
+    @PutMapping("/{id}/labor/{laborId}")
+    public ResponseEntity<OrdenTrabajoResponse> updateLabor(@PathVariable String id, @PathVariable String laborId,
+                                                            @RequestBody RegistroLaborRequest request) {
+        return ResponseEntity.ok(commandService.updateLabor(id, laborId, request));
+    }
+
+    @PostMapping("/{id}/cerrar")
+    public ResponseEntity<CierreOtResponse> close(@PathVariable String id) {
+        return ResponseEntity.ok(commandService.close(id));
+    }
+
+    @PostMapping("/{id}/reabrir")
+    public ResponseEntity<OrdenTrabajoResponse> reopen(@PathVariable String id) {
+        return ResponseEntity.ok(commandService.reopen(id));
+    }
+
+    @GetMapping("/kanban")
+    public ResponseEntity<List<KanbanResponse>> kanban(@RequestParam String tenantId) {
+        return ResponseEntity.ok(queryService.kanban(tenantId));
     }
 }

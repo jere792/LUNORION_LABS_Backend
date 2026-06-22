@@ -28,6 +28,11 @@ public class ProductoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(commandService.create(request));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductoResponse> update(@PathVariable String id, @RequestBody CreateProductoRequest request) {
+        return ResponseEntity.ok(commandService.update(id, request));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ProductoResponse> findById(@PathVariable String id) {
         return queryService.findById(id)
@@ -56,5 +61,25 @@ public class ProductoController {
     public ResponseEntity<Void> updateStock(@PathVariable String id, @RequestBody Integer cantidad) {
         commandService.updateStock(id, cantidad);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{id}/movimientos")
+    public ResponseEntity<List<?>> findMovimientosByProducto(@PathVariable String id) {
+        return ResponseEntity.ok(List.of());
+    }
+
+    @GetMapping("/stock-alertas")
+    public ResponseEntity<List<ProductoResponse>> findStockCritico(@RequestParam String tenantId) {
+        return ResponseEntity.ok(queryService.findStockCritico(tenantId));
+    }
+
+    @GetMapping("/reporte-rotacion")
+    public ResponseEntity<List<ProductoResponse>> reporteRotacion(@RequestParam String tenantId) {
+        return ResponseEntity.ok(queryService.reporteRotacion(tenantId));
+    }
+
+    @PostMapping("/creacion-rapida")
+    public ResponseEntity<ProductoResponse> quickCreate(@RequestBody CreateProductoRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(commandService.quickCreate(request));
     }
 }

@@ -20,4 +20,13 @@ public class AuthController {
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
         return ResponseEntity.ok(loginPort.login(request));
     }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<LoginResponse> refresh(@RequestHeader("Authorization") String authHeader) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(401).build();
+        }
+        String token = authHeader.substring(7);
+        return ResponseEntity.ok(loginPort.refresh(token));
+    }
 }

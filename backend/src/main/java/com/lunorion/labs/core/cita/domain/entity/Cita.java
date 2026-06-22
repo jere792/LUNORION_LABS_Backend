@@ -65,6 +65,17 @@ public class Cita extends BaseEntity {
         markUpdated();
     }
 
+    public void reprogramar(LocalDateTime nuevaFechaHora) {
+        this.fechaHora = nuevaFechaHora;
+        this.estado = "REPROGRAMADA";
+        markUpdated();
+    }
+
+    public void cambiarEstado(String nuevoEstado) {
+        this.estado = nuevoEstado;
+        markUpdated();
+    }
+
     public void setTecnicoId(String tecnicoId) { this.tecnicoId = tecnicoId; }
     public void setServicioDescripcion(String servicioDescripcion) { this.servicioDescripcion = servicioDescripcion; }
     public void setNotificarWhatsapp(boolean notificarWhatsapp) { this.notificarWhatsapp = notificarWhatsapp; }

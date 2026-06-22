@@ -2,6 +2,7 @@ package com.lunorion.labs.core.tecnico.infrastructure.adapters.in.http;
 
 import com.lunorion.labs.core.tecnico.application.dto.in.ActualizarTarifaRequest;
 import com.lunorion.labs.core.tecnico.application.dto.in.CreateTecnicoRequest;
+import com.lunorion.labs.core.tecnico.application.dto.out.CargaTrabajoResponse;
 import com.lunorion.labs.core.tecnico.application.dto.out.TecnicoResponse;
 import com.lunorion.labs.core.tecnico.domain.ports.in.ITecnicoCommandPort;
 import com.lunorion.labs.core.tecnico.domain.ports.in.ITecnicoQueryPort;
@@ -55,5 +56,10 @@ public class TecnicoController {
     public ResponseEntity<Void> actualizarTarifa(@PathVariable String id, @RequestBody ActualizarTarifaRequest request) {
         commandService.actualizarTarifa(id, request.getTarifa());
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{id}/carga-trabajo")
+    public ResponseEntity<CargaTrabajoResponse> workload(@PathVariable String id) {
+        return ResponseEntity.ok(queryService.workload(id));
     }
 }
